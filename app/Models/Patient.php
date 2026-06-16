@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'age',
+        'phone'
+    ];
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }
