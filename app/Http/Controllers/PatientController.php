@@ -64,10 +64,8 @@ class PatientController extends Controller
     public function update(Request $request, Patient $patient)
     {
         $request->validate([
-            'patient_id' => 'required|exists:patients,id',
             'name' => 'required',
-            'phone' => 'required|unique:patients.phone',
-
+            'phone' => 'required|unique:patients,phone,' . $patient->id,
             'age' => 'required|integer|min:0'
         ]);
         $patient->update($request->all());
@@ -86,5 +84,14 @@ class PatientController extends Controller
         return redirect()
             ->route('patients.index')
             ->with('success', 'Patient deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $patients = Patient::where('name', 'like', '%' . $request->search . '%')
+            ->limit(10)
+            ->get();
+
+        return response()->json($patients);
     }
 }

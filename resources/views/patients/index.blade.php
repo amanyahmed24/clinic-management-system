@@ -1,43 +1,61 @@
-<h2>Patients</h2>
+@extends('layouts.app')
+@section('content')
+    <h2>Patients</h2>
 
-<a href="{{ route('patients.create') }}">
-    Add Patient
-</a>
+    <a href="{{ route('patients.create') }}">
+        Add Patient
+    </a>
+    <div class="tab-content rounded-bottom">
+        <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
 
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Phone</th>
-        <th>Actions</th>
-    </tr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Age</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-    @foreach ($patients as $patient)
-        <tr>
-            <td>{{ $patient->name }}</td>
-            <td>{{ $patient->age }}</td>
-            <td>{{ $patient->phone }}</td>
+                    @foreach ($patients as $patient)
+                        <tr>
+                            <td>{{ $patient->name }}</td>
+                            <td>{{ $patient->age }}</td>
+                            <td>{{ $patient->phone }}</td>
 
-            <td>
-                <a href="{{ route('patients.show', $patient) }}">
-                    View
-                </a>
+                            <td>
+                                <a href="{{ route('patients.show', $patient) }}">
+                                    View
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('patients.edit', $patient) }}">
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                <form action="{{ route('patients.destroy', $patient) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
 
-                <a href="{{ route('patients.edit', $patient) }}">
-                    Edit
-                </a>
+                                    <button type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
 
-                <form action="{{ route('patients.destroy', $patient) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
+            </table>
+        </div>
+    </div>
 
-                    <button type="submit">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-    @endforeach
-</table>
 
-{{ $patients->links() }}
+    {{ $patients->links() }}
+@endsection

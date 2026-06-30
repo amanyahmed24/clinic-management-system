@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/patients/search', [PatientController::class, 'search'])
+        ->name('patients.search');
+
     Route::resource('patients', PatientController::class);
+    Route::resource('appoints', AppointmentController::class);
+    Route::patch('appoints/{appoint}/call-next', [AppointmentController::class, 'callNext'])->name('appoints.callNext');
 });
 
 

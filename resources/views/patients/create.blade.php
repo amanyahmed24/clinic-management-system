@@ -1,3 +1,6 @@
+@extends('layouts.app')
+@section('content')
+
 @if ($errors->any())
 
     <ul>
@@ -22,3 +25,5 @@
     </button>
 
 </form>
+
+@endsection
