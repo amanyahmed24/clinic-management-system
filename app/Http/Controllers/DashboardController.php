@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,7 +81,7 @@ class DashboardController extends Controller
         ));
     }
 
-    public function callNext()
+    public function callNext(WhatsAppService $whatsapp)
     {
         DB::beginTransaction();
 
@@ -104,9 +105,26 @@ class DashboardController extends Controller
             ]);
         }
 
+        $nextThree = Appointment::with('patient')
+            ->where('status', 'waiting')
+            ->orderBy('queue_number')
+            ->take(3)
+            ->get();
+
+        foreach ($nextThree as $index => $appointment) {
+
+            $whatsapp->sendQueueNotification(
+                $appointment,
+                $index + 1
+            );
+        }
+
         DB::commit();
         return redirect()
             ->route('dashboard')
             ->with('success', 'Next patient called successfully.');
     }
+
+
+    
 }
