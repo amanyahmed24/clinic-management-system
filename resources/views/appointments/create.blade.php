@@ -1,69 +1,86 @@
 @extends('layouts.app')
 @section('content')
-    <form action="{{ route('appoints.store') }}" method="POST">
+    <div class=" container ml-3">
+        <form action="{{ route('appoints.store') }}" method="POST">
 
-        @csrf
-
-        <div class="mb-3">
-            <label>
-                <input type="radio" name="patient_type" value="existing" checked>
-                Existing Patient
-            </label>
-
-            <label class="ms-3">
-                <input type="radio" name="patient_type" value="new">
-                New Patient
-            </label>
-        </div>
-
-        <div id="existingPatient">
+            @csrf
 
             <div class="mb-3">
-                <label>Search Patient</label>
+                <label>
+                    <input type="radio" name="patient_type" value="existing" checked>
+                    Existing Patient
+                </label>
 
-                <input type="text" id="patient_search" class="form-control" placeholder="Search by patient name...">
-
-                <input type="hidden" name="patient_id" id="patient_id">
-
-                <div id="search_results" class="list-group mt-2"></div>
+                <label class="ms-3">
+                    <input type="radio" name="patient_type" value="new">
+                    New Patient
+                </label>
             </div>
 
-        </div>
+            <div id="existingPatient">
 
-        <div id="newPatient" style="display:none;">
+                <div class="mb-3">
+                    <label>Search Patient</label>
 
-            <div class="mb-2">
+                    <input type="text" id="patient_search" class="form-control" placeholder="Search by patient name...">
 
-                <label>Name</label>
+                    <input type="hidden" name="patient_id" id="patient_id">
 
-                <input type="text" name="name" id="name" class="form-control">
-
-            </div>
-
-            <div class="mb-2">
-
-                <label>Age</label>
-
-                <input type="number" name="age" id="age" class="form-control">
+                    <div id="search_results" class="list-group mt-2"></div>
+                </div>
 
             </div>
 
-            <div class="mb-2">
+            <div id="newPatient" style="display:none;">
 
-                <label>Phone</label>
+                <div class="mb-2">
 
-                <input type="text" name="phone" id="phone" class="form-control">
+                    <label>Name</label>
+
+                    <input type="text" name="name" id="name" class="form-control">
+
+                </div>
+
+                <div class="mb-2">
+
+                    <label>Age</label>
+
+                    <input type="number" name="age" id="age" class="form-control">
+
+                </div>
+
+                <div class="mb-2">
+
+                    <label>Phone</label>
+
+                    <input type="text" name="phone" id="phone" class="form-control">
+                </div>
 
             </div>
 
-        </div>
 
-        <button class="btn btn-primary">
-            Save Appointment
-        </button>
+            <div class="mb-3">
+                <label class="mx-2">Appointment Type : </label>
+                <label>
+                    <input type="radio" name="type" value="checkup" checked>
+                    Checkup
+                </label>
+
+                <label class="ms-3">
+                    <input type="radio" name="type" value="consultation">
+                    Consultation
+                </label>
+            </div>
+    </div>
+
+
+
+    <button class="mt-3 btn btn-primary">
+        Save Appointment
+    </button>
 
     </form>
-
+    </div>
     <script>
         const existingRadio = document.querySelector('input[value="existing"]');
         const newRadio = document.querySelector('input[value="new"]');

@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('appointments', function (Blueprint $table) {
-            $table->enum('appointment_type', ['checkup', 'consultation'])->after('status');
+            $table->enum('appointment_type', ['checkup', 'consultation'])
+            ->default('checkup')->after('status');
         });
     }
 

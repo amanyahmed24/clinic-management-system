@@ -75,7 +75,9 @@ class AppointmentController extends Controller
 
             'queue_number' => $lastQueue ? $lastQueue + 1 : 1,
 
-            'status' => 'waiting'
+            'status' => 'waiting',
+
+            'appointment_type' => $request->type,
 
         ]);
         DB::commit();

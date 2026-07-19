@@ -13,7 +13,8 @@ class Appointment extends Model
         'patient_id',
         'created_by',
         'queue_number',
-        'status'
+        'status',
+        'appoint,emt_type'
     ];
 
     public function patient()
